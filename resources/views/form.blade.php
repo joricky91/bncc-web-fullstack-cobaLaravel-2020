@@ -8,7 +8,8 @@
 <body>
     <h1>Buat Account Baru!</h1>
     
-    <form name = "POST" action = "/welcome">
+    <form name = "signup" method = "POST" action = "/welcome">
+        @csrf
         <h4 class = "form-title">Sign Up Form</h4>
 
         <p class = "firstName">First Name :</p>

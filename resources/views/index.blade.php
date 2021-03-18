@@ -21,7 +21,7 @@
     <h2>Cara Bergabung ke BNCC LnT</h2>
     <ol type = "1">
         <li>Mengunjungi website ini</li>
-        <li>Mendaftar di <a href = "/form">Form Sign up</a></li>
+        <li>Mendaftar di <a href = "/register">Form Sign up</a></li>
         <li>Selesai</li>
     </ol>
     

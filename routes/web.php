@@ -13,10 +13,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'HomeController@home');
-
-Route::get('/form', function () {
-    return view('form');
+Route::get('/', function(){
+    return view('adminLTE.ruteslash');
 });
 
-Route::get('/welcome', 'AuthController@req');
+Route::get('/register', 'AuthController@register');
+
+Route::post('/welcome', 'AuthController@welcome');
+
+Route::get('DataTable', function(){
+    return view('adminLTE.ruteDataTable');
+});
+
