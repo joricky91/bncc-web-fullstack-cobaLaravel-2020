@@ -3,27 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BNCC</title>
+    <title>BNCC Database</title>
 </head>
 <body>
-    <h1>Bina Nusantara Computer Club</h1>
-    <h2>Divisi Learning and Training</h2>
-
-    <p>Belajar Laravel bersama</p>
-
-    <h2>Benefit Join di BNCC LnT</h2>
-    <ul>
-        <li>Mendapatkan motivasi dan diskusi sesama peserta</li>
-        <li>Sharing knowledge dari para pengajar</li>
-        <li>Dibuat oleh calon web developer terbaik</li>
-    </ul>
+    <h2>List Pertanyaan</h2>
     
-    <h2>Cara Bergabung ke BNCC LnT</h2>
-    <ol type = "1">
-        <li>Mengunjungi website ini</li>
-        <li>Mendaftar di <a href = "/register">Form Sign up</a></li>
-        <li>Selesai</li>
-    </ol>
-    
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Content</th>
+            <th>Action</th>
+        </tr>
+        @foreach ($questions as $q)
+            <tr>
+                <td>{{ $q->id }}</td>
+                <td>{{ $q->title }}</td>
+                <td>{{ $q->content }}</td>
+                <td>
+                    <a href="/pertanyaan/edit/{{ $q->id }}">Edit</a>
+                    |
+                    <form action="/pertanyaan/destroy/{{ $q->id }}" method="POST">
+                        <input type="submit" value="Delete">
+                        @method('delete')
+                        @csrf
+                    </form>
+                </td>
+            </tr>
+        @endforeach
+    </table>
 </body>
 </html>
