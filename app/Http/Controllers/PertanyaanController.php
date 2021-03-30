@@ -49,4 +49,10 @@ class PertanyaanController extends Controller
 
         return redirect('pertanyaan');
     }
+
+    public function show($id) {
+        $questions = DB::table('questions')->where('id', '=', 2)->get();
+
+        return view('show', ["questions" => $questions]);
+    }
 }

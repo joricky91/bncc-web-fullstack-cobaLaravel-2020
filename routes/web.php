@@ -37,3 +37,5 @@ Route::put('pertanyaan/update', "PertanyaanController@update");
 
 Route::delete('pertanyaan/destroy/{id}', 'PertanyaanController@destroy');
 
+Route::get('pertanyaan/{id}', 'PertanyaanController@show');
+
