@@ -3,38 +3,48 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
+
+use App\Pertanyaan;
 
 class PertanyaanController extends Controller
 {
-    public function index() {
-        $questions = DB::table('questions')->select('id', 'title', 'content')->get();
-
-        return view ('index', ['questions'=>$questions]);
+    /**
+     * Display a listing of the resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        $questions = Pertanyaan::all();
+        return view('index', ['questions' => $questions]);
     }
 
-    public function createPertanyaan(){
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
+    {
         return view('createPertanyaan');
     }
 
-    public function store (Request $req) {
-        DB::table('questions')->insert([
-            'id' => $req->id,
-            'title' => $req->title,
-            'content' => $req->content,
-            'profile_id' => $req->profile_id
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        $this->validate($request, [
+            'id' => 'required',
+            'title' => 'required',
+            'content' => 'required',
+            'profile_id' => 'required'
         ]);
-        return redirect ('/pertanyaan');
-    }
 
-    public function edit($id) {
-        $questions = DB::table('questions')->where('id', $id)->get();
-
-        return view('edit', ['questions' => $questions]);
-    }
-
-    public function update(Request $request){
-        DB::table('questions')->where('id', $request->id)->update([
+        Pertanyaan::create([
             'id' => $request->id,
             'title' => $request->title,
             'content' => $request->content,
@@ -44,15 +54,66 @@ class PertanyaanController extends Controller
         return redirect('/pertanyaan');
     }
 
-    public function destroy($id) {
-        DB::table('questions')->where('id', $id)->delete();
-
-        return redirect('pertanyaan');
+    /**
+     * Display the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function show($id)
+    {
+        $questions = Pertanyaan::select('id', 'title', 'content')->where('id', 2)->get();
+        return view('show', ['questions' => $questions]);
     }
 
-    public function show($id) {
-        $questions = DB::table('questions')->where('id', '=', 2)->get();
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($pertanyaan)
+    {
+        $questions = Pertanyaan::find($pertanyaan);
+        return view('edit', ['questions' => $questions]);
+    }
 
-        return view('show', ["questions" => $questions]);
+    /**
+     * Update the specified resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request, $id)
+    {
+        $this->validate($request, [
+            'id' => 'required',
+            'title' => 'required',
+            'content' => 'required',
+            'profile_id' => 'required'
+        ]);
+
+        $questions = Pertanyaan::find($id);
+        $questions->id = $request->id;
+        $questions->title = $request->title;
+        $questions->content = $request->content;
+        $questions->profile_id = $request->profile_id;
+        $questions->save();
+
+        return redirect('/pertanyaan');
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy($pertanyaan)
+    {
+        $questions = Pertanyaan::find($pertanyaan);
+        $questions->delete();
+        return redirect('/pertanyaan');
     }
 }

@@ -25,17 +25,4 @@ Route::get('DataTable', function(){
     return view('adminLTE.ruteDataTable');
 });
 
-Route::get('/pertanyaan', 'PertanyaanController@index');
-
-Route::get('/pertanyaan/create', 'PertanyaanController@createPertanyaan');
-
-Route::post('/pertanyaan/store', 'PertanyaanController@store');
-
-Route::get('pertanyaan/edit/{id}', 'PertanyaanController@edit');
-
-Route::put('pertanyaan/update', "PertanyaanController@update");
-
-Route::delete('pertanyaan/destroy/{id}', 'PertanyaanController@destroy');
-
-Route::get('pertanyaan/{id}', 'PertanyaanController@show');
-
+Route::resource('pertanyaan', 'PertanyaanController');

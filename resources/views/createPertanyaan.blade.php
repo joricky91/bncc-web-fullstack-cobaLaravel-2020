@@ -9,12 +9,41 @@
 <body>
     <h2>Membuat Pertanyaan Baru</h2>
     <br>
-    <form action="/pertanyaan/store" method="POST">
+    <form action="/pertanyaan" method="POST">
         @csrf
-        ID :<input type="text" name='id'><br><br>
-        Title :<input type="text" name='title'><br><br>
-        Content :<input type="text" name='content'><br><br>
-        Profile ID :<input type="text" name='profile_id'><br><br>
+        <div>
+            <label for="id">ID : </label>
+            <input type="text" name='id'>
+            @error('id')
+                <span style="color: red">ID must be filled.</span>
+            @enderror
+        </div>
+        
+        <div>
+            <label for="title">Title : </label>
+            <input type="text" name='title'>
+            @error('title')
+                <span style="color: red">Title must be filled.</span>
+            @enderror
+        </div>
+        
+        <div>
+            <label for="content">Content : </label>
+            <input type="text" name='content'>
+            @error('content')
+                <span style="color: red">Content must be filled.</span>
+            @enderror
+        </div>
+        
+        <div>
+            <label for="profile_id">Profile ID : </label>
+            <input type="text" name='profile_id'>
+
+            @error('profile_id')
+                <span style="color: red">Profile ID must be filled.</span>
+            @enderror
+        </div>
+        
         <input type="submit" value="Submit Data">
     </form>
 </body>

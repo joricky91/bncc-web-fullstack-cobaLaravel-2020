@@ -4,34 +4,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-eOJMYsd53ii+scO/bJGFsiCZc+5NDVN2yr8+0RDqr0Ql0h+rP48ckxlpbzKgwra6" crossorigin="anonymous">
     <title>Document</title>
 </head>
 <body>
-    <h2>List Pertanyaan Berdasarkan ID Tertentu</h2>
+    <div class="container">
+        <h2>List Pertanyaan Berdasarkan ID Tertentu</h2>
     
-    <table border="1">
-        <tr>
-            <th>ID</th>
-            <th>Title</th>
-            <th>Content</th>
-            <th>Action</th>
-        </tr>
-        @foreach ($questions as $q)
-            <tr>
-                <td>{{ $q->id }}</td>
-                <td>{{ $q->title }}</td>
-                <td>{{ $q->content }}</td>
-                <td>
-                    <a href="/pertanyaan/edit/{{ $q->id }}">Edit</a>
-                    |
-                    <form action="/pertanyaan/destroy/{{ $q->id }}" method="POST">
-                        <input type="submit" value="Delete">
-                        @method('delete')
-                        @csrf
-                    </form>
-                </td>
-            </tr>
-        @endforeach
-    </table>
+        <table class="table table-striped">
+            <thead class="table-dark">
+                <tr>
+                    <th scope="col">ID</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Content</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($questions as $q)
+                    <tr>
+                        <th scope="row">{{ $q->id }}</th>
+                        <td>{{ $q->title }}</td>
+                        <td>{{ $q->content }}</td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
 </body>
 </html>
