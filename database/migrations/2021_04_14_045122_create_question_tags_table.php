@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateQuestionsTable extends Migration
+class CreateQuestionTagsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,10 @@ class CreateQuestionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('questions', function (Blueprint $table) {
+        Schema::create('question_tags', function (Blueprint $table) {
             $table->id();
-            $table->string('title', 45);
-            $table->string('content', 255);
-            $table->unsignedBigInteger('profile_id')->unsigned();
-            $table->unsignedBigInteger('correct_answer_id')->unsigned();
+            $table->unsignedBigInteger('question_id')->unsigned();
+            $table->unsignedBigInteger('tag_id')->unsigned();
             $table->timestamps();
         });
     }
@@ -30,6 +28,6 @@ class CreateQuestionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('questions');
+        Schema::dropIfExists('question_tags');
     }
 }

@@ -4,10 +4,16 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
-use App\Pertanyaan;
+use App\Question;
+use App\Tag;
+use App\Answer;
+use App\User;
 
 class PertanyaanController extends Controller
 {
+    public function __construct(){
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +21,7 @@ class PertanyaanController extends Controller
      */
     public function index()
     {
-        $questions = Pertanyaan::all();
+        $questions = Question::all();
         return view('index', ['questions' => $questions]);
     }
 
@@ -44,7 +50,7 @@ class PertanyaanController extends Controller
             'profile_id' => 'required'
         ]);
 
-        Pertanyaan::create([
+            Question::create([
             'id' => $request->id,
             'title' => $request->title,
             'content' => $request->content,
@@ -62,8 +68,12 @@ class PertanyaanController extends Controller
      */
     public function show($id)
     {
-        $questions = Pertanyaan::select('id', 'title', 'content')->where('id', 2)->get();
-        return view('show', ['questions' => $questions]);
+        $questions = Question::find($id);
+        $answers = $questions->answer;
+        $correct = Answer::find($questions['correct_answer_id']);
+        $tags = $questions->tag;
+        return view('show', ['questions' => $questions, 'answers' => $answers, 'correct' => $correct, 
+        'tags' => $tags]);
     }
 
     /**
@@ -74,7 +84,7 @@ class PertanyaanController extends Controller
      */
     public function edit($pertanyaan)
     {
-        $questions = Pertanyaan::find($pertanyaan);
+        $questions = Question::find($pertanyaan);
         return view('edit', ['questions' => $questions]);
     }
 
@@ -94,7 +104,7 @@ class PertanyaanController extends Controller
             'profile_id' => 'required'
         ]);
 
-        $questions = Pertanyaan::find($id);
+        $questions = Question::find($id);
         $questions->id = $request->id;
         $questions->title = $request->title;
         $questions->content = $request->content;
@@ -112,7 +122,7 @@ class PertanyaanController extends Controller
      */
     public function destroy($pertanyaan)
     {
-        $questions = Pertanyaan::find($pertanyaan);
+        $questions = Question::find($pertanyaan);
         $questions->delete();
         return redirect('/pertanyaan');
     }

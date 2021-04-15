@@ -13,16 +13,24 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function(){
-    return view('adminLTE.ruteslash');
-});
+// Route::get('/', function(){
+//     return view('adminLTE.ruteslash');
+// });
 
-Route::get('/register', 'AuthController@register');
+// Route::get('/register', 'AuthController@register');
 
-Route::post('/welcome', 'AuthController@welcome');
+// Route::post('/welcome', 'AuthController@welcome');
 
-Route::get('DataTable', function(){
-    return view('adminLTE.ruteDataTable');
-});
+// Route::get('DataTable', function(){
+//     return view('adminLTE.ruteDataTable');
+// });
 
 Route::resource('pertanyaan', 'PertanyaanController');
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/', function() {
+    return view ('welcome');
+});
